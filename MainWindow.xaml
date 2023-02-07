@@ -58,24 +58,6 @@
 				Tag="IsCloseButton"
 				Cursor="Hand"/>
 			<Button
-				x:Name="RestoreButton"
-				Margin="5, 0"
-				Click="RestoreButton_Click"
-				Cursor="Hand">
-				<Button.Style>
-					<Style
-						TargetType="{x:Type Button}"
-						BasedOn="{StaticResource WindowButtonStyle}">
-						<Setter Property="Content" Value="{StaticResource maximize_ico}"/>
-						<Style.Triggers>
-							<DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
-								<Setter Property="Content" Value="{StaticResource restore_ico}"/>
-							</DataTrigger>
-						</Style.Triggers>
-					</Style>
-				</Button.Style>
-			</Button>
-			<Button
 				x:Name="MinimizeButton"
 				Style="{StaticResource WindowButtonStyle}"
 				Content="{StaticResource minimize_ico}"
