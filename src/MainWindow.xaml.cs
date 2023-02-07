@@ -72,7 +72,7 @@ namespace CanaryLauncherUpdate
 			}
 		}
 
-		private async void TibiaLauncher_Load(object sender, RoutedEventArgs e)
+		private void TibiaLauncher_Load(object sender, RoutedEventArgs e)
 		{
 			ImageLogoServer.Source = new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), "pack://application:,,,/Assets/logo.png"));
 			ImageLogoCompany.Source = new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), "pack://application:,,,/Assets/logo_company.png"));
@@ -210,7 +210,7 @@ namespace CanaryLauncherUpdate
 			}
 		}
 
-		private async void Client_DownloadFileCompleted(object? sender, System.ComponentModel.AsyncCompletedEventArgs e)
+		private async void Client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
 		{
 			buttonPlay.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), "pack://application:,,,/Assets/button_play.png")));
 			buttonPlayIcon.Source = new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), "pack://application:,,,/Assets/icon_play.png"));
@@ -231,7 +231,7 @@ namespace CanaryLauncherUpdate
 			await Task.Run(() =>
 			{
 				Directory.CreateDirectory(GetLauncherPath());
-				ZipFile.ExtractToDirectory(GetLauncherPath() + "/tibia.zip", GetLauncherPath(), true);
+				ZipFile.ExtractToDirectory(GetLauncherPath() + "/tibia.zip", GetLauncherPath(), null);
 				File.Delete(GetLauncherPath() + "/tibia.zip");
 			});
 			progressbarDownload.Value = 100;
@@ -242,7 +242,6 @@ namespace CanaryLauncherUpdate
 			webClient.DownloadFile(launcerConfigUrl, localPath);
 
 			addReadOnly();
-
 			CreateShortcut();
 
 			needUpdate = false;

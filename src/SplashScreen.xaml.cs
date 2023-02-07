@@ -25,8 +25,6 @@ namespace CanaryLauncherUpdate
 		static string clientExecutableName = clientConfig.clientExecutable;
 		static string urlClient = clientConfig.newClientUrl;
 
-		string newVersion = "";
-
 		static readonly HttpClient httpClient = new HttpClient();
 		DispatcherTimer timer = new DispatcherTimer();
 
@@ -86,7 +84,7 @@ namespace CanaryLauncherUpdate
 			timer.Start();
 		}
 
-		public async void timer_SplashScreen(object? sender, EventArgs e)
+		public async void timer_SplashScreen(object sender, EventArgs e)
 		{
 			var requestClient = new HttpRequestMessage(HttpMethod.Post, urlClient);
 			var response = await httpClient.SendAsync(requestClient);
