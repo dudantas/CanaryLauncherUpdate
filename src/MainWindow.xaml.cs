@@ -6,7 +6,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.IO.Compression;
 using System.Net;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using Ionic.Zip;
 using LauncherConfig;
 
 namespace CanaryLauncherUpdate
@@ -126,7 +125,7 @@ namespace CanaryLauncherUpdate
 			return "";
 		}
 
-		private void addReadOnly()
+		private void AddReadOnly()
 		{
 			// If the files "eventschedule/boostedcreature/onlinenumbers" exist, set them as read-only
 			string eventSchedulePath = GetLauncherPath() + "/cache/eventschedule.json";
@@ -143,26 +142,8 @@ namespace CanaryLauncherUpdate
 			}
 		}
 
-		private void removeReadOnly()
-		{
-			// If the files "eventschedule/boostedcreature/onlinenumbers" exist, remove read-only from this
-			string eventSchedulePath = GetLauncherPath() + "/cache/eventschedule.json";
-			if (File.Exists(eventSchedulePath)) {
-				File.SetAttributes(eventSchedulePath, FileAttributes.Normal);
-			}
-			string boostedCreaturePath = GetLauncherPath() + "/cache/boostedcreature.json";
-			if (File.Exists(boostedCreaturePath)) {
-				File.SetAttributes(boostedCreaturePath, FileAttributes.Normal);
-			}
-			string onlineNumbersPath = GetLauncherPath() + "/cache/onlinenumbers.json";
-			if (File.Exists(onlineNumbersPath)) {
-				File.SetAttributes(onlineNumbersPath, FileAttributes.Normal);
-			}
-		}
-
 		private void updateClient()
 		{
-			removeReadOnly();
 			if (!Directory.Exists(GetLauncherPath(true)))
 			{
 				Directory.CreateDirectory(GetLauncherPath());
@@ -210,6 +191,17 @@ namespace CanaryLauncherUpdate
 			}
 		}
 
+		private void unpackage(string path, ExtractExistingFileAction existingFileAction)
+		{
+			using (ZipFile modZip = ZipFile.Read(path))
+			{
+				foreach (ZipEntry zipEntry in modZip)
+				{
+					zipEntry.Extract(GetLauncherPath(), existingFileAction);
+				}
+			}
+		}
+
 		private async void Client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
 		{
 			buttonPlay.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), "pack://application:,,,/Assets/button_play.png")));
@@ -231,7 +223,7 @@ namespace CanaryLauncherUpdate
 			await Task.Run(() =>
 			{
 				Directory.CreateDirectory(GetLauncherPath());
-				ZipFile.ExtractToDirectory(GetLauncherPath() + "/tibia.zip", GetLauncherPath(), null);
+				unpackage(GetLauncherPath() + "/tibia.zip", ExtractExistingFileAction.OverwriteSilently);
 				File.Delete(GetLauncherPath() + "/tibia.zip");
 			});
 			progressbarDownload.Value = 100;
@@ -241,7 +233,7 @@ namespace CanaryLauncherUpdate
 			string localPath = Path.Combine(GetLauncherPath(true), "launcher_config.json");
 			webClient.DownloadFile(launcerConfigUrl, localPath);
 
-			addReadOnly();
+			AddReadOnly();
 			CreateShortcut();
 
 			needUpdate = false;
