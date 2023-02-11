@@ -18,9 +18,9 @@ namespace CanaryLauncherUpdate
 {
 	public partial class SplashScreen : Window
 	{
-		static string launcerConfigUrl = "https://raw.githubusercontent.com/gccris/molten_client/main/launcher_config.json";
+		static string launcherConfigUrl = "https://raw.githubusercontent.com/gccris/molten_client/main/launcher_config.json";
 		// Load informations of launcher_config.json file
-		static ClientConfig clientConfig = ClientConfig.loadFromFile(launcerConfigUrl);
+		static ClientConfig clientConfig = ClientConfig.loadFromFile(launcherConfigUrl);
 		
 		static string clientExecutableName = clientConfig.clientExecutable;
 		static string urlClient = clientConfig.newClientUrl;

@@ -20,9 +20,9 @@ namespace CanaryLauncherUpdate
 {
 	public partial class MainWindow : Window
 	{
-		static string launcerConfigUrl = "https://raw.githubusercontent.com/gccris/molten_client/main/launcher_config.json";
+		static string launcherConfigUrl = "https://raw.githubusercontent.com/gccris/molten_client/main/launcher_config.json";
 		// Load informations of launcher_config.json file
-		static ClientConfig clientConfig = ClientConfig.loadFromFile(launcerConfigUrl);
+		static ClientConfig clientConfig = ClientConfig.loadFromFile(launcherConfigUrl);
 
 		static string clientExecutableName = clientConfig.clientExecutable;
 		static string urlClient = clientConfig.newClientUrl;
@@ -142,7 +142,7 @@ namespace CanaryLauncherUpdate
 			}
 		}
 
-		private void updateClient()
+		private void UpdateClient()
 		{
 			if (!Directory.Exists(GetLauncherPath(true)))
 			{
@@ -163,7 +163,7 @@ namespace CanaryLauncherUpdate
 			{
 				try
 				{
-					updateClient();
+					UpdateClient();
 				}
 				catch (Exception ex)
 				{
@@ -181,7 +181,7 @@ namespace CanaryLauncherUpdate
 				{
 					try
 					{
-						updateClient();
+						UpdateClient();
 					}
 					catch (Exception ex)
 					{
@@ -231,7 +231,7 @@ namespace CanaryLauncherUpdate
 			// Download launcher_config.json from url to the launcher path
 			WebClient webClient = new WebClient();
 			string localPath = Path.Combine(GetLauncherPath(true), "launcher_config.json");
-			webClient.DownloadFile(launcerConfigUrl, localPath);
+			webClient.DownloadFile(launcherConfigUrl, localPath);
 
 			AddReadOnly();
 			CreateShortcut();
