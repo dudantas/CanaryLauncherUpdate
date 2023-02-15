@@ -32,7 +32,6 @@ namespace CanaryLauncherUpdate
 		bool clientDownloaded = false;
 		bool needUpdate = false;
 
-		static readonly HttpClient httpClient = new HttpClient();
 		WebClient webClient = new WebClient();
 
 		private string GetLauncherPath(bool onlyBaseDirectory = false)
@@ -50,25 +49,6 @@ namespace CanaryLauncherUpdate
 		public MainWindow()
 		{
 			InitializeComponent();
-		}
-
-		static void CreateShortcut()
-		{
-			string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-			string shortcutPath = Path.Combine(desktopPath, "Molten.lnk");
-			Type t = Type.GetTypeFromProgID("WScript.Shell");
-			dynamic shell = Activator.CreateInstance(t);
-			var lnk = shell.CreateShortcut(shortcutPath);
-			try
-			{
-				lnk.TargetPath = Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe");
-				lnk.Description = "Molten";
-				lnk.Save();
-			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.FinalReleaseComObject(lnk);
-			}
 		}
 
 		private void TibiaLauncher_Load(object sender, RoutedEventArgs e)
@@ -234,7 +214,6 @@ namespace CanaryLauncherUpdate
 			webClient.DownloadFile(launcherConfigUrl, localPath);
 
 			AddReadOnly();
-			CreateShortcut();
 
 			needUpdate = false;
 			clientDownloaded = true;
