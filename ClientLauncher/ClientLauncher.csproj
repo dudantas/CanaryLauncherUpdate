@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E21D451C-4724-4738-A716-DD441AD38747}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Launcher</RootNamespace>
+    <RootNamespace>MoltenLauncher</RootNamespace>
     <ApplicationIcon>icon.ico</ApplicationIcon>
-    <AssemblyName>Launcher</AssemblyName>
+    <AssemblyName>MoltenLauncher</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -32,6 +32,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,12 +45,21 @@
     <Compile Include="src\App.xaml.cs" />
     <Compile Include="src\AssemblyInfo.cs" />
     <Compile Include="src\ClientConfig.cs" />
+    <Compile Include="src\MainWindow.xaml.cs" />
     <Compile Include="src\SplashScreen.xaml.cs" />
     <PackageReference Include="Ionic.Zip" Version="1.9.1.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="assets\icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Include="src\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -59,8 +69,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="launcher_ico.png" />
-    <Resource Include="logo.png" />
+    <Resource Include="assets\background.jpg" />
+    <Resource Include="assets\bg_button_update.png" />
+    <Resource Include="assets\bg_hints.png" />
+    <Resource Include="assets\button_hover_play.png" />
+    <Resource Include="assets\button_hover_update.png" />
+    <Resource Include="assets\button_play.png" />
+    <Resource Include="assets\button_update.png" />
+    <Resource Include="assets\icon_play.png" />
+    <Resource Include="assets\icon_update.png" />
+    <Resource Include="assets\launcher_ico.png" />
+    <Resource Include="assets\logo.png" />
+    <Resource Include="assets\logo_company.png" />
+    <Resource Include="assets\rh_lore.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,12 +16,9 @@ namespace LauncherConfig
 		public bool replaceFolders { get; set; }
 		public ReplaceFolderName[] replaceFolderName { get; set; }
 		public string clientFolder { get; set; }
-		public string packageFolder { get; set; }
 		public string newClientUrl { get; set; }
 		public string newConfigUrl { get; set; }
-		public string newLauncherUrl { get; set; }
 		public string clientExecutable { get; set; }
-		public string launcherExecutable { get; set; }
 
 		public static ClientConfig loadFromFile(string url)
 		{

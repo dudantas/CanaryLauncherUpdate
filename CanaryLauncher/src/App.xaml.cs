@@ -6,12 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace CanaryLauncherUpdate
+namespace Launcher
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public class Program
+	/// <summary>
+	/// Interaction logic for App.xaml
+	/// </summary>
+	public class Program
 	{
 		[STAThread]
 		public static void Main(string[] args)
