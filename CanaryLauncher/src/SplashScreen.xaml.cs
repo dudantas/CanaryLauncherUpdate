@@ -136,7 +136,7 @@ namespace Launcher
 			} else {
 				launcherPath = AppDomain.CurrentDomain.BaseDirectory.ToString() + "/" + packageFolder;
 			}
-			
+
 			return launcherPath;
 		}
 
@@ -179,16 +179,9 @@ namespace Launcher
 			Type t = Type.GetTypeFromProgID("WScript.Shell");
 			dynamic shell = Activator.CreateInstance(t);
 			var lnk = shell.CreateShortcut(shortcutPath);
-			try
-			{
-				lnk.TargetPath = Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe");
-				lnk.Description = "Molten";
-				lnk.Save();
-			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.FinalReleaseComObject(lnk);
-			}
+			lnk.TargetPath = Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe");
+			lnk.Description = "Molten";
+			lnk.Save();
 		}
 
 		private void TaskDownloadClientLauncher(string url)
@@ -205,6 +198,7 @@ namespace Launcher
 				timer.Tick += new EventHandler(TemporizedSplashScreen);
 				timer.Interval = new TimeSpan(0, 0, 0);
 				timer.Start();
+				CreateShortcut();
 			}
 			else
 			{
